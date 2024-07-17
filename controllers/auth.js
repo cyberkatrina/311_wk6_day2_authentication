@@ -1,4 +1,5 @@
-1const axios = require('axios')
+const axios = require('axios')
+require('dotenv').config()
 const mysql = require('mysql')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -27,14 +28,14 @@ const saltRounds = 10
 
 const login = (req, res) => {
   const { username, password } = req.body
-
+  console.log("here", username, password)
   axios(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
     },
     data: {
-      grant_type: 'password',
+      grant_type: 'client_credentials',
       username: username,
       password: password,
       audience: process.env.AUTH0_IDENTITY,
